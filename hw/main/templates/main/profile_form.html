@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!--<title> Login and Registration Form in HTML & CSS | CodingLab </title>-->
+    <link rel="stylesheet" href="{% static 'main/login/style.css' %}">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+	<!-- {% include 'details/header.html' %} -->
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="{% static 'main/login/images/frontImg.jpg' %}" alt="">
+        <div class="text">
+          <span class="text-1">Будьте в тренде моды с нами<br> с помощью одного шага</span>
+          <span class="text-2">Давайте начнем</span>
+        </div>
+      </div>
+      <div class="back">
+        <img class="backImg" src="{% static 'main/login/images/backImg.jpg' %}" alt="">
+        <div class="text">
+          <span class="text-1">Будьте в тренде моды с нами<br> с помощью одного шага</span>
+          <span class="text-2">Давайте начнем</span>
+        </div>
+      </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+        <div class="signup-form">
+          <div class="title">Настройки аккаунта</div>
+        {% if form %}
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        
+            <div class="input-boxes">
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="first_name" placeholder="Введите своё имя" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="last_name" placeholder="Введите свою фамилию" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" placeholder="Введите имя аккаунта" required>
+                </div>
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="email" placeholder="Введите электронную почту" required>
+                </div>
+              
+                <div class="text"><a href="{% url 'password-change' %}">Изменить пароль</a></div>
+              <div class="button input-box">
+                <input type="submit" value="Изменить">
+              </div>
+            </div>
+      </form>
+       {% else %}
+
+      {% endif %} 
+
+    </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>
