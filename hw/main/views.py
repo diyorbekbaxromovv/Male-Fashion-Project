@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy 
 from django.views.generic import UpdateView
+
 # Create your views here.
 def index(request):
     heros = Hero.objects.all()

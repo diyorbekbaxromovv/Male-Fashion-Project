@@ -1,0 +1,31 @@
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Информация о заказе</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul id="orderDetails" class="checkout__total__products">
+          <!-- Сюда будет подставляться информация о продуктах -->
+        </ul>
+        <p id="totalAmount" class="checkout__total__all">Общая сумма: <span></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="checkout__order__products" id="showOrderDetails">
+  Продукт <span>Общий</span>
+</div>
+{% for order in orders %}
+<div id="orderDetails_{{ order.id }}" class="d-none">
+  <ul class="checkout__total__products">
+    {% for item in order.items %}
+    <li>{{ item.name }} <span>$ {{ item.get_total_price }}</span></li>
+    {% endfor %}
+  </ul>
+  <p class="checkout__total__all">Общий <span>${{ order.total }}</span></p>
+</div>
+{% endfor %}

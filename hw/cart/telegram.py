@@ -21,7 +21,7 @@ def get_chat_id(bot_token):
         
         
 async def send_message(bot_token, chat_id, text): 
-    bot = Bot(token=bot_token)
+    bot = Bot(token=bot_token) 
     await bot.send_message(chat_id=chat_id, text=text)
     
 

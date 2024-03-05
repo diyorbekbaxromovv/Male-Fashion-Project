@@ -65,10 +65,12 @@
                     <a href="#" class="search-switch"><img src="{% static 'main/img/icon/search.png' %}" alt=""></a>
                     <a href="#"><img src="{% static 'main/img/icon/heart.png' %}" alt=""></a>
                     <a href="{% url 'cart:cart_summary' %}"><img src="{% static 'main/img/icon/cart.png' %}" alt=""> <span class="cart_items">{{cart|length}}</span></a>
-                    <div class="price">$0.00</div>
+                    <div class="price">${{total}}</div>
                 </div>
             </div>
         </div>
         <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
 </header>
+
+  

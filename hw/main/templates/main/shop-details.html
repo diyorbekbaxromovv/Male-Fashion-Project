@@ -38,78 +38,7 @@
     <!-- Offcanvas Menu End -->
 
     <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-7">
-                        <div class="header__top__left">
-                            <p>Бесплатная доставка, 30-дневная гарантия возврата или возврата.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-5">
-                        <div class="header__top__right">
-                            {% if not user.is_authenticated %}
-                            <div class="header__top__links">                          
-                                
-                                <a href="{% url 'login' %}">Вход</a>
-                                <a href="{% url 'register' %}">Зарегистрироваться</a>
-    
-                                {% else %}
-                                <a href="{% url 'logout' %}">Выход</a>
-                                {% endif %}
-                                <a href="#">FAQs</a>
-                            </div>
-                            <div class="header__top__hover">
-                                <span>Usd <i class="arrow_carrot-down"></i></span>
-                                <ul>
-                                    <li>USD</li>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__logo">
-                        <a href="{% url 'index' %}"><img src="{% static 'main/img/logo.png' %}" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <nav class="header__menu mobile-menu">
-                        <ul>
-                            <li class="active"><a href="{% url 'index' %}">Домой</a></li>
-                            <li><a href="{% url 'shop' %}">Магазин</a></li>
-                            <li><a href="#">Страницы</a>
-                                <ul class="dropdown">
-                                    <li><a href="{% url 'about' %}">Про нас</a></li>
-                                    <li><a href="{% url 'cart:cart_summary' %}">Шоппинг карточка</a></li>
-                                    <li><a href="./checkout.html">Проверить</a></li>
-                                    <li><a href="./blog-details.html">Блог информация</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Влог</a></li>
-                            <li><a href="./contact.html">Контакты</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__nav__option">
-                        <a href="#" class="search-switch"><img src="{% static 'main/img/icon/search.png' %}" alt=""></a>
-                        <a href="#"><img src="{% static 'main/img/icon/heart.png' %}" alt=""></a>
-                        <a href="{% url 'cart:cart_summary' %}"><img src="{% static 'main/img/icon/cart.png' %}" alt=""> <span class="cart_items">{{cart|length}}</span></a>
-                        <div class="price">$0.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas__open"><i class="fa fa-bars"></i></div>
-        </div>
-    </header>   
+    {% include 'details/header.html' %}
     <!-- Header Section End -->
 
     <!-- Shop Details Section Begin -->
@@ -248,6 +177,7 @@
                                 </div>
                                 <!-- <a href="#" id="add-cart" type="button" value="{{product.id}}" class="primary-btn">Добавить в карту</a> -->
                                 <button id="add-cart" type="button" value="{{product.id}}" class="primary-btn" > >Добавить в карту</button>
+{% include 'main/success.html' %}
                             </div>
                             <div class="product__details__btns__option">
                                 <a href="#"><i class="fa fa-heart"></i> Добавить к списку желаемые</a>
@@ -657,7 +587,23 @@
             }
         })
     })
+    $(document).ready(function(){
+    // При клике на ссылку "Заказы" в навигационном меню
+    $('#showOrdersBtn').click(function(e){
+      e.preventDefault(); // Предотвращаем стандартное поведение ссылки
 
+      // Получаем содержимое деталей заказа из скрытого блока
+      var orderDetails = $('#orderDetails_{{ order.id }}').html();
+      // Вставляем содержимое в модальное окно
+      $('#orderDetails').html(orderDetails);
+      // Получаем и устанавливаем общую сумму заказа
+      var totalAmount = $('#orderDetails_{{ order.id }} .checkout__total__all span').text();
+      $('#totalAmount span').text(totalAmount);
+
+      // Показываем модальное окно
+      $('#orderModal').modal('show');
+    });
+  });
 
 </script>
 

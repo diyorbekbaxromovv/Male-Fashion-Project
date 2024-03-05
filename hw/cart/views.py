@@ -18,18 +18,16 @@ from django.http import HttpResponse, FileResponse
 import tempfile
 def cart_summary(request):
     cart = Cart(request)
-
     cart_prods = cart.get_product()
     prod_count = cart.get_quantity()
     product_count = request.POST.get('prod_count')
     product_id = request.POST.get('product_id')
-    get_product_total = cart.get_product_total(product_id, quantity=product_count)
+    get_product_total = cart.get_total_price()
     total = cart.get_total()
     data = {
         'cart_prods': cart_prods,
         'prod_count': prod_count,
         'total': total,
-        'get_product_total':get_product_total
     }
     return render(request,'main/shopping-cart.html', context=data)
 
@@ -90,19 +88,19 @@ def order_details(request):
         
         order.save()
         
-        # for info in all_info:
-        #     order_item = OrderItem(
-        #         order = order, 
-        #         product_id = info['id'],
-        #         name = info['name'],
-        #         price = Decimal(info['price']),
-        #         quantity = int(info['quantity']),
+        for info in all_info:
+            order_item = OrderItem(
+                order = order, 
+                product_id = info['id'],
+                name = info['name'],
+                price = Decimal(info['price']),
+                quantity = int(info['quantity']),
                 
-        #     )    
-        #     order_item.save()
+            )    
+            order_item.save()
         
         
-        # cart.cart_clear()
+        cart.cart_clear()
         
         
         message = "Новый заказ:\n"
@@ -121,8 +119,6 @@ def order_details(request):
             response['Content-Disposition'] = 'attachment; filename=order_receipt.txt'
             return response
     
-    
-
 
 def create_receipt(order_info):
     with tempfile.NamedTemporaryFile(delete=False, mode='w+') as file:

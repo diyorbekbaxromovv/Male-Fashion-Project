@@ -35,6 +35,7 @@
         <div class="loader"></div>
     </div>
 
+ 
     <!-- Offcanvas Menu Begin -->
     {% include 'details/offcanvas.html' %}
     <!-- Offcanvas Menu End -->
@@ -92,5 +93,23 @@
     <script src="{% static 'main/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'main/js/main.js' %}"></script>
 </body>
-
+<script>
+    $(document).ready(function(){
+      // При клике на ссылку "Заказы" в навигационном меню
+      $('#showOrdersBtn').click(function(e){
+        e.preventDefault(); // Предотвращаем стандартное поведение ссылки
+  
+        // Получаем содержимое деталей заказа из скрытого блока
+        var orderDetails = $('#orderDetails_{{ order.id }}').html();
+        // Вставляем содержимое в модальное окно
+        $('#orderDetails').html(orderDetails);
+        // Получаем и устанавливаем общую сумму заказа
+        var totalAmount = $('#orderDetails_{{ order.id }} .checkout__total__all span').text();
+        $('#totalAmount span').text(totalAmount);
+  
+        // Показываем модальное окно
+        $('#orderModal').modal('show');
+      });
+    });
+  </script>
 </html>
