@@ -10,8 +10,8 @@ from django.http import JsonResponse
 # Create your views here.
 from .telegram import main
 import asyncio
-from telegram import Bot
-import requests
+
+
 
 
 from django.http import HttpResponse, FileResponse
@@ -22,7 +22,7 @@ def cart_summary(request):
     prod_count = cart.get_quantity()
     product_count = request.POST.get('prod_count')
     product_id = request.POST.get('product_id')
-    get_product_total = cart.get_total_price()
+    # get_product_total = cart.get_total_price()
     total = cart.get_total()
     data = {
         'cart_prods': cart_prods,
